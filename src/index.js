@@ -1,7 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
+
 import "./styles.css";
 import logo from "./images/logo.png";
+
 import $ from "jquery";
 window.$ = $;
 
@@ -54,7 +56,7 @@ class App extends React.Component {
     return (
       <div className="container">
         <img className="Logo" src={logo} alt="Rick y Morty" />
-        <div style={{ marginLeft: "30%" }}>
+        <div style={{ marginLeft: "30.7%" }}>
           <input
             value={this.state.numbers}
             onChange={e => {
@@ -62,14 +64,15 @@ class App extends React.Component {
             }}
             name="inputNumbers"
             style={{ height: "34px" }}
-            type="number"></input>
+            type="number"
+          ></input>
           <button
             onClick={() => {
               window.sessionStorage.setItem(
                 "cantidadPersonajes",
                 this.state.numbers
               );
-              document.location.reload(true)
+              document.location.reload(true);
             }}
             style={{
               marginLeft: "16px",
@@ -77,7 +80,8 @@ class App extends React.Component {
               lineHeight: "0px",
               backgroundColor: "#00afc8",
               boxShadow: "4px 3px 3px #b7ca52"
-            }}>
+            }}
+          >
             Actualizar
           </button>
         </div>
