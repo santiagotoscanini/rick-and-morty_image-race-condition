@@ -18,13 +18,14 @@ function CharacterCard(props) {
 }
 
 class App extends React.Component {
-  number = 50;
   state = {
-    characters: []
+    characters: [],
+    numbers: 10
   };
 
   componentDidMount = () => {
     const scope = this;
+
     const fetchCharacters = function(id) {
       $.get(
         `https://rickandmortyapi.com/api/character/${id}`,
@@ -37,17 +38,49 @@ class App extends React.Component {
         }
       );
     };
-
-    for (var i = 0; i <= this.number; i++) {
-      fetchCharacters(i);
-    }
+    this.setState(
+      {
+        numbers: window.sessionStorage.getItem("cantidadPersonajes")
+      },
+      () => {
+        for (var i = 0; i <= this.state.numbers; i++) {
+          fetchCharacters(i);
+        }
+      }
+    );
   };
 
   render() {
     return (
       <div className="container">
         <img className="Logo" src={logo} alt="Rick y Morty" />
-        <h1>Mostrando los primeros {this.number}</h1>
+        <div style={{ marginLeft: "30%" }}>
+          <input
+            value={this.state.numbers}
+            onChange={e => {
+              this.setState({ numbers: e.target.value });
+            }}
+            name="inputNumbers"
+            style={{ height: "34px" }}
+            type="number"></input>
+          <button
+            onClick={() => {
+              window.sessionStorage.setItem(
+                "cantidadPersonajes",
+                this.state.numbers
+              );
+              document.location.reload(true)
+            }}
+            style={{
+              marginLeft: "16px",
+              height: "34px",
+              lineHeight: "0px",
+              backgroundColor: "#00afc8",
+              boxShadow: "4px 3px 3px #b7ca52"
+            }}>
+            Actualizar
+          </button>
+        </div>
         <ul className="row">
           {this.state.characters.map((char, i) => (
             <li className="col-6 col-md-3" key={i}>
